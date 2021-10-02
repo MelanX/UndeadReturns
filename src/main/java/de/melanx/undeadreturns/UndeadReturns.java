@@ -4,6 +4,7 @@ import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -12,6 +13,8 @@ import javax.annotation.Nonnull;
 
 @Mod("undeadreturns")
 public final class UndeadReturns extends ModXRegistration {
+
+    private static UndeadReturns instance;
 
     public UndeadReturns() {
         super("undeadreturns", new CreativeModeTab("undeadreturns") {
@@ -22,6 +25,9 @@ public final class UndeadReturns extends ModXRegistration {
                 return ItemStack.EMPTY;
             }
         });
+        instance = this;
+
+        MinecraftForge.EVENT_BUS.register(new EventListener());
     }
 
     @Override
@@ -37,5 +43,9 @@ public final class UndeadReturns extends ModXRegistration {
     @Override
     protected void clientSetup(FMLClientSetupEvent event) {
 
+    }
+
+    public static UndeadReturns getInstance() {
+        return instance;
     }
 }
