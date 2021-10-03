@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -44,9 +43,9 @@ public class LootPile extends BlockEntity implements TickableBlock {
 
             if (this.existingTicks >= 1000) {
                 BlockPos blockPos = this.getBlockPos();
-                int x = blockPos.getX();
-                int y = blockPos.getY();
-                int z = blockPos.getZ();
+                double x = blockPos.getX() + 0.5;
+                double y = blockPos.getY();
+                double z = blockPos.getZ() + 0.5;
                 this.setRemoved();
                 this.level.removeBlock(blockPos, false);
 
@@ -66,8 +65,8 @@ public class LootPile extends BlockEntity implements TickableBlock {
                         attribute.addPermanentModifier(new AttributeModifier(MAX_HEALTH_ID, "Boss Modifier", this.getTotalItemCount(), AttributeModifier.Operation.ADDITION));
                     }
                     entity.setHealth(entity.getMaxHealth());
-                    entity.setCustomName(new TextComponent("Boss"));
                     entity.setPos(x, y, z);
+                    entity.getPersistentData().putBoolean("Boss", true); // todo remove when having own mob
                     this.level.addFreshEntity(entity);
                 }
             }

@@ -31,6 +31,11 @@ public class EventListener {
         LivingEntity entity = event.getEntityLiving();
         Level level = entity.level;
 
+        // todo remove when having own mob
+        if (entity.getPersistentData().getBoolean("Boss")) {
+            return;
+        }
+
         for (Tag.Named<EntityType<?>> tag : UNDEADS) {
             if (!tag.contains(entity.getType())) {
                 continue;
