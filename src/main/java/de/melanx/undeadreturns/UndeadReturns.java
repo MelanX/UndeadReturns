@@ -1,7 +1,10 @@
 package de.melanx.undeadreturns;
 
+import de.melanx.undeadreturns.entity.skeleton.SkeletonBossRenderer;
+import de.melanx.undeadreturns.registration.ModEntityTypes;
 import io.github.noeppi_noeppi.libx.mod.registration.ModXRegistration;
 import io.github.noeppi_noeppi.libx.mod.registration.RegistrationBuilder;
+import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -42,10 +45,17 @@ public final class UndeadReturns extends ModXRegistration {
 
     @Override
     protected void clientSetup(FMLClientSetupEvent event) {
-
+        EntityRenderers.register(ModEntityTypes.skeletonBoss, SkeletonBossRenderer::new);
     }
 
+    @Nonnull
     public static UndeadReturns getInstance() {
         return instance;
+    }
+
+    @Nonnull
+    public static CreativeModeTab getTab() {
+        //noinspection ConstantConditions
+        return instance.tab;
     }
 }
